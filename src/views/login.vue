@@ -7,13 +7,13 @@
     
     <form class="w-75">
   <!-- Email input -->
-  <div class="form-outline mb-4 d-flex flex-column">
+  <div class="mb-4 d-flex flex-column">
     <label class="" for="email">Email address</label>
     <input v-model="loginInfo.email" type="email" id="email" class="bg-light border" />
   </div>
 
   <!-- Password input -->
-  <div class="form-outline mb-4 d-flex flex-column">
+  <div class="mb-4 d-flex flex-column">
     <label class="" for="password">Password</label>
     <input v-model="loginInfo.password" type="password" id="password" class="bg-light border" />
   </div>

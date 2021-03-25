@@ -8,7 +8,7 @@
     <form>
   <!-- Email input -->
 
-    <div class="form-outline mb-4 d-flex">
+    <div class="mb-4 d-flex">
         <div class="d-flex flex-column me-2">
             <label for="firstName">Firstname</label>
             <input v-model="registerInfo.firstName" type="text" id="firstName" class="bg-light border xav" /> 
@@ -21,14 +21,14 @@
       </div>
   </div>
 
-  <div class="form-outline mb-4 d-flex flex-column">
+  <div class="mb-4 d-flex flex-column">
     <label for="email">Email address</label>
     <input v-model="registerInfo.email" type="email" id="email" class="bg-light border" />
   </div>
 
   <!-- Password input -->
-  <div class="form-outline mb-4 d-flex flex-column">
-    <label class="" for="password">Password</label>
+  <div class="mb-4 d-flex flex-column">
+    <label for="password">Password</label>
     <input v-model="registerInfo.password" type="password" id="password" class="bg-light border" />
   </div>
 
