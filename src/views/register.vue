@@ -10,33 +10,33 @@
 
     <div class="form-outline mb-4 d-flex">
         <div class="d-flex flex-column me-2">
-            <label class="" for="firstname">Firstname</label>
-            <input type="text" id="firstname" class="bg-light border xav" /> 
+            <label for="firstName">Firstname</label>
+            <input v-model="registerInfo.firstName" type="text" id="firstName" class="bg-light border xav" /> 
         </div>
     
   
     <div class="d-flex flex-column">
-        <label class="" for="lastname">Lastname</label>
-        <input type="text" id="lastname" class="bg-light border xav" /> 
+        <label for="lastName">Lastname</label>
+        <input v-model="registerInfo.lastName" type="text" id="lastName" class="bg-light border xav" /> 
       </div>
   </div>
 
   <div class="form-outline mb-4 d-flex flex-column">
-    <label class="" for="email">Email address</label>
-    <input v-model="loginInfo.email" type="email" id="email" class="bg-light border" />
+    <label for="email">Email address</label>
+    <input v-model="registerInfo.email" type="email" id="email" class="bg-light border" />
   </div>
 
   <!-- Password input -->
   <div class="form-outline mb-4 d-flex flex-column">
     <label class="" for="password">Password</label>
-    <input v-model="loginInfo.password" type="password" id="password" class="bg-light border" />
+    <input v-model="registerInfo.password" type="password" id="password" class="bg-light border" />
   </div>
 
   <!-- 2 column grid layout for inline styling -->
   
 
   <!-- Submit button -->
-  <button @click.prevent="loginUser" type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+  <button @click.prevent="registerUser" type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
   <!-- Register buttons -->
   <div class="text-center">
@@ -50,10 +50,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
 data(){
   return{
-    loginInfo: {
+    registerInfo: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: ""
     },
@@ -62,14 +65,10 @@ data(){
   
 },
 methods: {
-  async loginUser(){
-    let user = await this.$store.dispatch('loginUser', this.loginInfo)
-    if(user.error){
-      console.log("fail")
-    }else{
-      console.log("success")
-      console.log(user.user.email)
-    }
+  ...mapActions(['register']),
+  
+  registerUser(){
+    this.register(this.registerInfo)
   }
 }
 }
@@ -83,6 +82,7 @@ methods: {
   border-radius: 15%;
 }
 .xav{
-    width: 150px;
+  width: 150px;
 }
+
 </style>

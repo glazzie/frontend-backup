@@ -60,6 +60,15 @@ export default new Vuex.Store({
         return {error: "Username/Password combination was incorrect"}
       }
       
+    },
+    async register ({dispatch}, {email, password, firstName, lastName}){
+      let res = await api().post('/users/register',{email: email, password: password, firstName: firstName, lastName: lastName})
+      if (res.status === 201){
+        dispatch('loginUser', {email: email, password: password})
+      }
+      
+      
+      
     }
   },
   modules: {
