@@ -30,6 +30,23 @@ export default new Vuex.Store({
     SET_CURRENT_USER(state, user){
       state.currentUser = user
       window.localStorage.currentUser = JSON.stringify(user)
+    },
+    ADD_TO_CART(state, { product, quantity }){
+      let exists = state.cart.find(item => item.product._id === product._id)
+      if(exists){
+        exists.quantity += quantity
+        return
+      }
+      state.cart.push({product , quantity})
+    }
+  },
+  getters:{
+    cartItemCount: state => {
+      let items = 0
+      state.cart.forEach(item =>{
+        items += item.quantity
+      })
+      return items
     }
   },
   actions: {
@@ -37,14 +54,16 @@ export default new Vuex.Store({
     let res = await api().get('/products')
     commit('SET_PRODUCTS', res.data)
     this.products = res.data.data
+
+    let user = JSON.parse(window.localStorage.currentUser)
+      commit('SET_CURRENT_USER', user)
   },
     async loadUsers({commit}){
       let res = await api().get('/users')
       commit('SET_USERS', res.data)
       this.users = res.data.data
 
-      let user = JSON.parse(window.localStorage.currentUser)
-      commit('SET_CURRENT_USER', user)
+      
     },
     logoutUser({commit}) {
       commit('LOGOUT_USER')
@@ -65,11 +84,13 @@ export default new Vuex.Store({
       let res = await api().post('/users/register',{email: email, password: password, firstName: firstName, lastName: lastName})
       if (res.status === 201){
         dispatch('loginUser', {email: email, password: password})
-      }
-      
-      
-      
+      }  
+    },
+
+    async addToCart({commit}, { product, quantity }){
+      commit('ADD_TO_CART', { product, quantity })
     }
+
   },
   modules: {
   }

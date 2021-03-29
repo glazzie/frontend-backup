@@ -8,7 +8,7 @@
                 <p>{{ product.desc}}</p>
 
             <div>
-                <button class="btn btn-info">Add to Cart</button>
+                <button @click="addToCart({product, quantity})" class="btn btn-info">Add to Cart</button>
             </div>
             </div>
 
@@ -18,7 +18,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+
+    data(){
+        return {
+            quantity: 1
+        }
+    },
+    
+    methods: {
+        ...mapActions(['addToCart'])
+    },
     computed: {
         product(){
             return this.$store.state.products.find(pro => pro._id == this.$route.params.id)

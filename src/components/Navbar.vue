@@ -35,9 +35,9 @@
       <!-- Right links -->
       <ul class="navbar-nav d-flex flex-row">
       <!-- Icon dropdown cart -->
-      <li class="nav-item me-3 me-lg-0 dropdown">
+      <li class="nav-item me-3 me-lg-0 dropdown ">
         <a
-          class="nav-link"
+          class="nav-link hidden-arrow"
           href="#"
           id="navbarDropdown"
           role="button"
@@ -45,15 +45,10 @@
           aria-expanded="false"
         >
           <span><i class="fas fa-shopping-cart fa-lg"></i></span>
-          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+          <span v-if="cartItemCount" class="badge rounded-pill badge-notification bg-danger">{{ cartItemCount }}</span>
         </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </li>
+        <ul class="dropdown-menu dropdown-menu-end shopping-cart" aria-labelledby="navbarDropdown">
+         <ShoppingCart />
         </ul>
       </li>
 
@@ -81,7 +76,7 @@
         >
           <i class="fas fa-user"></i>
         </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="#">{{ currentUser.email }}</a></li>
           <li><a class="dropdown-item" href="#">Another action</a></li>
           <li><hr class="dropdown-divider" /></li>
@@ -100,9 +95,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import ShoppingCart from './ShoppingCart'
+import { mapGetters, mapState } from 'vuex'
 export default {
+
+  components: {
+    ShoppingCart
+  },
 computed: {
+  ...mapGetters(['cartItemCount']),
   ...mapState(['currentUser'])
 },
 methods: {
@@ -115,6 +116,8 @@ methods: {
 }
 </script>
 
-<style>
-
+<style scoped>
+.shopping-cart{
+  min-width: 450px;
+}
 </style>
