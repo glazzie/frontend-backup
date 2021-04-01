@@ -16,10 +16,6 @@ export default new Vuex.Store({
       state.products = products
     },
 
-    SET_CART(state){
-      state.cart = state.currentUser.cart
-    },
-
     SET_USERS(state, users){
       state.users = users
     },
@@ -38,8 +34,13 @@ export default new Vuex.Store({
         return
       }
       state.cart.push({product , quantity})
+    },
+    CLEAR_CART(state){
+      state.cart = []
     }
   },
+
+
   getters:{
     cartItemCount: state => {
       let items = 0
@@ -47,6 +48,14 @@ export default new Vuex.Store({
         items += item.quantity
       })
       return items
+    },
+    cartPriceTotal: state => {
+        let t = 0;
+        for (let index = 0; index < state.cart.length; index++)
+        {
+           t += state.cart[index].product.price * state.cart[index].quantity
+        }
+        return t
     }
   },
   actions: {
@@ -87,9 +96,16 @@ export default new Vuex.Store({
       }  
     },
 
+    async buyReq ({commit}, {user, products, price}){
+      let res = await api().post('/orders/new',{user: user, products: products, price: price})
+      if (res.status === 201){
+        commit('CLEAR_CART')
+      }  
+    },
+
     async addToCart({commit}, { product, quantity }){
       commit('ADD_TO_CART', { product, quantity })
-    }
+    },
 
   },
   modules: {

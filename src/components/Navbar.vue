@@ -4,7 +4,8 @@
   <!-- Container wrapper -->
   <div class="container">
     <!-- Navbar brand -->
-    <a class="navbar-brand" href="#">Brand</a>
+     <router-link to="/"><a class="navbar-brand" href="#">Brand</a></router-link>
+    
 
     <!-- Toggle button -->
     <button

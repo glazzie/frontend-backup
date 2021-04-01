@@ -11,11 +11,11 @@
           </div>
           <div>
               <div class="btn-group btn-group-sm me-2" role="group" area-label="quantity">
-                  <button class="btn btn-dark" @click.stop="">-</button>
-                  <button class="btn btn-dark" @click.stop="">+</button>
+                  <button class="btn btn-dark" @click.stop="removeQ">-</button>
+                  <button class="btn btn-dark" @click.stop="addQ">+</button>
                   
               </div>
-              <button class="btn btn-danger btn-sm" @click.stop=""><i class="fas fa-trash"></i></button>
+              <button class="btn btn-danger btn-sm" @click.stop="deleteQ"><i class="fas fa-trash"></i></button>
           </div>
       </div>
       <div class="dropdown-divider"></div>
@@ -24,7 +24,21 @@
 
 <script>
 export default {
-    props: ['item']
+    props: ['item'],
+
+    methods: {
+        addQ(){
+            this.item.quantity +=1
+        },
+        removeQ(){
+            if(this.item.quantity > 1){
+                this.item.quantity -=1
+            }
+        },
+        deleteQ(){
+            this.$store.state.cart.splice(this.$store.state.cart.indexOf(this.item), 1)
+        }
+    },
 }
 </script>
 

@@ -13,24 +13,50 @@
         <div class="p-2 d-flex justify-content-between align-items-center">
             <div class="ms-2">
                 <div class="total price">
-                    Totalt: <span class="ms-1">100 sek</span>
+                    Totalt: <p class="ms-1">{{ cartPriceTotal }} sek</p>
                 </div>
                 <small class="text-muted">inkl. moms</small>
             </div>
-            <button class="btn btn-info">gå till kassan</button>
+            <button @click="buy" class="btn btn-info">Köp</button>
         </div>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import CartProduct from './CartProduct'
 export default {
     components: {
         CartProduct
     },
+    data(){
+  return{
+    orderInfo: {
+      user: {},
+      products: "",
+      price: "",
+    },
+
+
+  }
+  
+},
+methods: {
+...mapActions(['buyReq']),
+
+    buy(){
+        if(this.$store.state.currentUser.email){
+            this.orderInfo.user = this.$store.state.currentUser
+        } 
+        this.orderInfo.price = this.$store.getters.cartPriceTotal
+        this.orderInfo.products = this.$store.state.cart
+        this.buyReq(this.orderInfo)
+    }
+},
     computed: {
-        ...mapState(['cart'])
+        ...mapState(['cart']),
+        ...mapGetters(['cartPriceTotal']),
+
     }
 }
 </script>

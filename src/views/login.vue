@@ -54,7 +54,7 @@ methods: {
       console.log("fail")
     }else{
       console.log("success")
-      console.log(user.email)
+      console.log(user.user.email)
     }
   }
 }
