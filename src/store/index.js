@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
+    orders: [],
     users: [],
     currentUser: {},
     cart: [],
@@ -18,6 +19,9 @@ export default new Vuex.Store({
 
     SET_USERS(state, users){
       state.users = users
+    },
+    SET_ORDERS(state, orders){
+      state.orders = orders
     },
     LOGOUT_USER(state){
       state.currentUser = {}
@@ -63,16 +67,16 @@ export default new Vuex.Store({
     let res = await api().get('/products')
     commit('SET_PRODUCTS', res.data)
     this.products = res.data.data
-
-    let user = JSON.parse(window.localStorage.currentUser)
-      commit('SET_CURRENT_USER', user)
   },
     async loadUsers({commit}){
       let res = await api().get('/users')
       commit('SET_USERS', res.data)
-      this.users = res.data.data
+      this.users = res.data.data 
+    },
 
-      
+    checkUser({commit}){
+      let user = JSON.parse(window.localStorage.currentUser)
+      commit('SET_CURRENT_USER', user)
     },
     logoutUser({commit}) {
       commit('LOGOUT_USER')
@@ -106,6 +110,14 @@ export default new Vuex.Store({
     async addToCart({commit}, { product, quantity }){
       commit('ADD_TO_CART', { product, quantity })
     },
+
+    async loadOrders({commit}){
+      let res = await api().get('/orders')
+      commit('SET_ORDERS', res.data)
+      this.orders = res.data.data
+    },
+
+    
 
   },
   modules: {

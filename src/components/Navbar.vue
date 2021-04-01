@@ -4,7 +4,7 @@
   <!-- Container wrapper -->
   <div class="container">
     <!-- Navbar brand -->
-     <router-link to="/"><a class="navbar-brand" href="#">Brand</a></router-link>
+     <router-link to="/"><a class="navbar-brand" href="#">RasmusElectronics</a></router-link>
     
 
     <!-- Toggle button -->
@@ -48,7 +48,7 @@
           <span><i class="fas fa-shopping-cart fa-lg"></i></span>
           <span v-if="cartItemCount" class="badge rounded-pill badge-notification bg-danger">{{ cartItemCount }}</span>
         </a>
-        <ul class="dropdown-menu dropdown-menu-end shopping-cart" aria-labelledby="navbarDropdown">
+        <ul :class="formattedSrc" class="dropdown-menu shopping-cart" aria-labelledby="navbarDropdown">
          <ShoppingCart />
         </ul>
       </li>
@@ -60,7 +60,7 @@
           type="button"
           data-mdb-ripple-color="dark"
         >
-          Log in
+          Login
         </button>
         </router-link>
      
@@ -77,9 +77,9 @@
         >
           <i class="fas fa-user"></i>
         </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <ul :class="formattedSrc" class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="#">{{ currentUser.email }}</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li v-if="currentUser.admin"> <router-link to="/admin"><a class="dropdown-item" href="#">Admin tools</a></router-link></li>
           <li><hr class="dropdown-divider" /></li>
           <li @click="logoutUser">
             <a class="dropdown-item" href="#" >Log out</a>
@@ -103,9 +103,16 @@ export default {
   components: {
     ShoppingCart
   },
+  
 computed: {
   ...mapGetters(['cartItemCount']),
-  ...mapState(['currentUser'])
+  ...mapState(['currentUser']),
+
+  formattedSrc(){
+          return{
+            'dropdown-menu-end': screen.width > 991
+          }
+        }
 },
 methods: {
 

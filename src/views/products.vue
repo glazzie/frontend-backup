@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row color py-4 mt-2 px-4">
       <div class="col-lg-4 my-2" v-for="product in products" :key="product.id">
         <router-link :to="{ name: 'ProductWatch', params: { id: product._id }}">
-          <div class="card border">
+          <div class="card border bord">
         <div class="d-flex flex-column justify-content-center align-items-center">
           <img style="width: 10rem" class="bg-image" :src="product.image"/>
         <h3>${{ product.price }}</h3>
@@ -35,6 +35,8 @@ computed: {
 }
 </script>
 
-<style>
-
+<style scoped>
+.bord{
+  border-radius: 20px;
+}
 </style>

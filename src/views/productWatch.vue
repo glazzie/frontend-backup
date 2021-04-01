@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <div class="my-3 row py-5  border">
+      <div class="my-3 row py-5  color">
             <img class="col-lg-6" :src="product.image"/>
             <div class="col-lg-6 d-flex flex-column justify-content-center">
                 <h1>{{ product.name }}</h1>

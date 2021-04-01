@@ -1,6 +1,6 @@
 <template>
 
-<div class="d-flex login m-auto align-items-center flex-column">
+<div class="d-flex login m-auto align-items-center flex-column mt-5">
 
 
     <h1 class="my-5">Login</h1>
@@ -10,6 +10,7 @@
   <div class="mb-4 d-flex flex-column">
     <label class="" for="email">Email address</label>
     <input v-model="loginInfo.email" type="email" id="email" class="bg-light border" />
+    <div class="text-danger">{{ loginerror.msg }}</div>    
   </div>
 
   <!-- Password input -->
@@ -43,19 +44,23 @@ data(){
       email: "",
       password: ""
     },
+    loginerror:{
+      msg: ""
+    }
 
   }
   
 },
 methods: {
   async loginUser(){
-    let user = await this.$store.dispatch('loginUser', this.loginInfo)
-    if(user.error){
-      console.log("fail")
-    }else{
-      console.log("success")
-      console.log(user.user.email)
+          let user = await this.$store.dispatch('loginUser', this.loginInfo)
+          if(user.error){
+            this.loginerror.msg = "fel email eller lösenord"
+          }else{
+            this.$router.replace({ name: 'Home'})
+            this.loginerror.msg = ""
     }
+
   }
 }
 }
@@ -65,7 +70,7 @@ methods: {
 .login{
   height: 500px;
   width:400px;
-  background-color: rgb(200, 226, 231);
-  border-radius: 15%;
+  background-color: rgba(0, 0, 0, 0.212);
+  border-radius: 20px;
 }
 </style>

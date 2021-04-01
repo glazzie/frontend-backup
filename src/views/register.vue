@@ -1,6 +1,6 @@
 <template>
 
-<div class="d-flex login m-auto align-items-center flex-column">
+<div class="d-flex login m-auto align-items-center flex-column mt-5">
 
 
     <h1 class="my-5">Register</h1>
@@ -78,8 +78,8 @@ methods: {
 .login{
   height: 500px;
   width:400px;
-  background-color: rgb(200, 226, 231);
-  border-radius: 15%;
+  background-color: rgba(0, 0, 0, 0.212);
+  border-radius: 20px;
 }
 .xav{
   width: 150px;
