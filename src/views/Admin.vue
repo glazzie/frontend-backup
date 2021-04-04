@@ -5,9 +5,16 @@
         <div class="my-2" v-for="order in orders" :key="order.id">
             <div class="card border bord">
             <div class="d-flex flex-column justify-content-center align-items-center">
+            <p class="mb-1"> OrderNr: {{ order._id }}</p>
             <h3>{{ order.user.firstName}}  {{ order.user.lastName}}</h3>
             <p>{{ order.user.email}}</p>
-            <button class="btn btn-success">Done</button>
+            
+            <button v-if="!order.done" @click="order.done = !order.done" class="btn btn-success">Done</button>
+            <div v-else>
+                <button class="btn btn-dark" @click="order.done = !order.done">unDone</button>
+                <button class="btn btn-danger" @click="deleteo(order._id)">Delete</button>
+            </div>
+            
             </div>
             <div class="card-body">
                 <div v-for="item in order.products" :key="item.id">
@@ -32,14 +39,33 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+    data(){
+        return{
+            deleteinfo:{
+                id: "",
+
+            }
+        }
+    },
     
     mounted(){
         this.$store.dispatch('loadOrders')
+        
 },
 computed: {
     orders() { return this.$store.state.orders }
 },  
+methods: {
+   ...mapActions(['deleteOrder']),
+  
+  deleteo(id){
+    this.deleteinfo.id = id
+    this.deleteOrder(this.deleteinfo)
+  }
+}
 }
 </script>
 

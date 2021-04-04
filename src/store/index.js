@@ -116,6 +116,12 @@ export default new Vuex.Store({
       commit('SET_ORDERS', res.data)
       this.orders = res.data.data
     },
+    async deleteOrder({dispatch}, { id }){
+      console.log(id)
+      await api().delete(`/orders/${id}`, )
+      dispatch('loadOrders')
+    },
+
 
     
 
